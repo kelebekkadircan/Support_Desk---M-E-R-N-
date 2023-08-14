@@ -15,12 +15,12 @@ function NewTicket() {
 
     const { user } = useSelector((state) => state.auth)
 
-    const { isLoading, isError, isSuccess, message } = useSelector((state) => state.ticket)
+    const { isLoading, isError, isSuccess, message } = useSelector((state) => state.tickets)
 
     const [name] = useState(user.name)
     const [email] = useState(user.email)
     const [product, setProduct] = useState('Iphone')
-    const [description, setDescription] = useState('')
+    const [description, setDescription] = useState('The device is not working')
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -32,10 +32,11 @@ function NewTicket() {
 
         if (isSuccess) {
             dispatch(reset())
-            navigate('/')
+            navigate('/tickets')
         }
 
         dispatch(reset())
+
     }, [dispatch, isError, isSuccess, navigate, message])
 
     const onSubmit = (e) => {
@@ -89,9 +90,8 @@ function NewTicket() {
                         <textarea name="description" id="description" cols="30" rows="10" className='form-control' placeholder='Description' value={description} onChange={(e) => setDescription(e.target.value)} ></textarea>
                     </div>
 
-                    <div className="form-group">
-                        <button className='btn btn-block'>Submit </button>
-                    </div>
+
+                    <button className='btn btn-block'>Submit </button>
 
 
                 </form>
